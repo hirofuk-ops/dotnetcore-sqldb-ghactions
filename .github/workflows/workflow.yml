@@ -39,7 +39,12 @@ jobs:
         run: |
           dotnet build --configuration Release
           dotnet publish -c Release -o myapp 
-          
+
+      - name: Login for az cli commands 
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       # Deploy to Azure Web apps staging slot
       - name: 'Run Azure webapp deploy action using publish profile credentials'
         uses: azure/webapps-deploy@v2
